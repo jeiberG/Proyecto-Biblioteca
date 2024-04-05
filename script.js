@@ -6,10 +6,10 @@ function Libro(title, author, pages, read) {
     this.pages = pages;
     this.read = read;
 
-    this.info = function() {
-        let readStatus = this.read ? "read" : "not read yet";
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus}`;
-    };
+    // this.info = function() {
+    //     let readStatus = this.read ? "read" : "not read yet";
+    //     return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus}`;
+    // };
 }
 
 function addBookToLibrary() {
@@ -22,6 +22,34 @@ function addBookToLibrary() {
     myLibrary.push(newBook);
 }
 
+function displayBooks(){
+    addBookToLibrary();
+    const container = document.getElementById('books-container');
+
+    let card = document.createElement('div');
+    card.classList.add('book-card');
+
+    myLibrary.forEach(book =>{
+        let title = document.createElement('h1');
+        title.textContent = book.title;
+        card.appendChild(title);
+
+        let author = document.createElement('p');
+        author.textContent = book.author;
+        card.appendChild(author);
+
+        let pages = document.createElement('p');
+        pages.textContent = book.pages;
+        card.appendChild(pages);
+
+        let read = document.createElement('p');
+        read.textContent = `Read: ${book.read ? 'Yes' : 'No'}`;
+        card.appendChild(read);
+
+        
+    })
+    container.appendChild(card);
+}
 // Ejemplo de uso:
-addBookToLibrary();
-console.log(myLibrary);
+displayBooks();
+console.log(myLibrary)
