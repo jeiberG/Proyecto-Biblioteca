@@ -1,3 +1,5 @@
+const myLibrary = [];
+
 function Libro(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -10,6 +12,16 @@ function Libro(title, author, pages, read) {
     };
 }
 
+function addBookToLibrary() {
+    let title = prompt("Enter the title of the book:");
+    let author = prompt("Enter the author of the book:");
+    let pages = parseInt(prompt("Enter the number of pages:"));
+    let read = confirm("Have you read this book?");
+
+    let newBook = new Libro(title, author, pages, read);
+    myLibrary.push(newBook);
+}
+
 // Ejemplo de uso:
-let theHobbit = new Libro("The Hobbit", "J.R.R. Tolkien", 295, false);
-console.log(theHobbit.info()); // "The Hobbit by J.R.R. Tolkien, 295 pages, not read yet"
+addBookToLibrary();
+console.log(myLibrary);
