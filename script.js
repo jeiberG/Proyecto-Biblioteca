@@ -5,51 +5,63 @@ function Libro(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-
-    // this.info = function() {
-    //     let readStatus = this.read ? "read" : "not read yet";
-    //     return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus}`;
-    // };
 }
 
 function addBookToLibrary() {
     let title = prompt("Enter the title of the book:");
     let author = prompt("Enter the author of the book:");
     let pages = parseInt(prompt("Enter the number of pages:"));
-    let read = confirm("Have you read this book?");
 
-    let newBook = new Libro(title, author, pages, read);
+    let newBook = new Libro(title, author, pages);
     myLibrary.push(newBook);
 }
 
 function displayBooks(){
-    addBookToLibrary();
+
     const container = document.getElementById('books-container');
+    container.innerHTML = '';
 
-    let card = document.createElement('div');
-    card.classList.add('book-card');
-
+    addBookToLibrary();
+    
     myLibrary.forEach(book =>{
+        
+        let card = document.createElement('div');
+        card.classList.add('book-card');
+
+        let btnClosed = document.createElement('button');
+        btnClosed.textContent = 'X';
+        btnClosed.classList.add('closed');
+        card.appendChild(btnClosed);
+
+        let bookInfo = document.createElement('div');
+        bookInfo.classList.add('book-info');
+
         let title = document.createElement('h1');
         title.textContent = book.title;
-        card.appendChild(title);
+        bookInfo.appendChild(title);
 
         let author = document.createElement('p');
-        author.textContent = book.author;
-        card.appendChild(author);
+        author.textContent = 'By ' + book.author;
+        bookInfo.appendChild(author);
+
+        card.appendChild(bookInfo);
 
         let pages = document.createElement('p');
-        pages.textContent = book.pages;
+        pages.textContent = book.pages + ' Pages';
         card.appendChild(pages);
 
-        let read = document.createElement('p');
-        read.textContent = `Read: ${book.read ? 'Yes' : 'No'}`;
+
+        let read = document.createElement('button');
+        read.classList.add('btn-read');
+        read.textContent = 'Read';
         card.appendChild(read);
 
-        
+        container.appendChild(card);
+
     })
-    container.appendChild(card);
 }
-// Ejemplo de uso:
-displayBooks();
-console.log(myLibrary)
+
+const bntAddBook = document.querySelector('.Add-Book')
+bntAddBook.addEventListener('click',()=>{
+    displayBooks();
+})
