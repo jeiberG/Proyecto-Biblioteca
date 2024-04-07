@@ -51,11 +51,20 @@ function displayBooks() {
         card.appendChild(pages);
 
         let read = document.createElement('button');
-        read.classList.add('btn-read');
         read.textContent = book.read ? 'Read' : 'Unread';
         read.addEventListener('click', () => {
             book.read = !book.read;
-            read.textContent = book.read ? 'Read' : 'Unread';
+            // read.textContent = book.read ? 'Read' : 'Unread';
+            if (book.read) {
+                read.textContent = 'Read';
+                read.classList.remove('btn-unread');
+                read.classList.add('btn-read');
+
+            }else{
+                read.textContent = 'Unread';
+                read.classList.add('btn-unread');
+                read.classList.remove('btn-read');
+            } 
         });
         card.appendChild(read);
 
@@ -63,20 +72,33 @@ function displayBooks() {
     });
 }
 
-const btnAddBook = document.querySelector('.Add-Book');
-btnAddBook.addEventListener('click', () => {
-    let title = prompt("Enter the title of the book:");
-    let author = prompt("Enter the author of the book:");
-    let pages = parseInt(prompt("Enter the number of pages:"));
+const btnCreateBook = document.getElementById('crear');
+btnCreateBook.addEventListener('click', (event) => {
+    event.preventDefault();
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
 
-    // Basic input validation
     if (title && author && pages) {
         let newBook = new Book(title, author, pages);
         addBookToLibrary(newBook);
     } else {
         alert('Please provide valid input.');
     }
+
+    
 });
 
-// Initial display
-displayBooks();
+// MODAL
+const buttonOpenModal = document.querySelector("[data-id='abrir-modal']");
+const buttonCloseModal = document.querySelector("[data-id='cerrar-modal']");
+
+const dialog = document.querySelector(".modal");
+
+buttonOpenModal.addEventListener("click",()=>{
+    dialog.showModal();
+});
+
+buttonCloseModal.addEventListener("click",()=>{
+    dialog.close()
+;})

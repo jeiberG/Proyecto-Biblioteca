@@ -10,7 +10,7 @@ header {
     height: 8vh;
     justify-content: space-between;
     gap: .5em;
-    font-size: 2em;
+    font-size: 3em;
 }
 header div:first-child{
     flex: 1;
@@ -23,8 +23,9 @@ header div {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#1b191a;
+    background-color:#1b191ade;
     gap:0.5em;
+    border-radius: .5em;
 }
 header div svg{
     width: min-content;
@@ -63,6 +64,7 @@ header div svg{
     color:#000;
     position: relative;
 }
+.modal > button,
 .book-card button.closed {
     justify-self: end;
     font-size: 1.5em;
@@ -91,10 +93,78 @@ header div svg{
 .book-card p {
     font-weight: 700;
 }
+.modal form button,
 .book-card button {
-    background-color: rgb(144, 205, 53);
     font-weight: 900;
     width: 100px;
     padding: 5px;
     border-radius: 15px;
+}
+.modal form button,
+.book-card .btn-read {
+    background-color: rgb(144, 205, 53);
+}
+.book-card .btn-unread {
+    background-color: #00000052;
+}
+
+.modal {
+    position: fixed;
+    inset:0;
+    margin: auto;
+    padding: 2rem 3rem;
+    max-width: 80%;
+    border-radius: .5em;
+
+    animation: show-modal .5s .4s both;
+}
+.modal h1 {
+    font-weight: 900;
+    font-size: 1.5em;
+}
+.modal form label {
+    margin: 25px 0px 5px 0;
+    color:#Fff;
+    font-weight: 600;
+    width: 40%;
+    text-align: center;
+    border-radius: .5em;
+    padding: .2em;
+    background-color: #1b191ade;
+}
+.modal form input{
+    width: 100%;
+    border-radius: 0.3em;
+    padding: 4px;
+    background-color: hsl(0 0% 0% / 15%);
+}
+.modal form button {
+    margin-top: 25px;
+    width: 40%;
+    border-radius: .5em;
+}
+.modal[open]::backdrop{
+    animation: show-backdrop .4s forwards;
+}
+.modal::backdrop{
+    background-color: hsl(0 0% 0% / 60%);
+}
+
+@keyframes show-modal {
+    0%{
+        transform: translateY(60%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+@keyframes show-backdrop {
+    0%{
+        transform: translateY(100%);
+    }
+    100%{
+        transform: translateY(0%);
+    }
 }
